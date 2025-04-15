@@ -32,21 +32,42 @@ const Contact = () => {
     }));
   };
   
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormStatus('submitting');
     
-    // In a real implementation, this would send data to the backend
-    setTimeout(() => {
-      setFormStatus('success');
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: ''
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
       });
+      
+      const data = await response.json();
+      
+      if (response.ok) {
+        console.log('Message sent successfully!', data);
+        
+        setFormStatus('success');
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+        
+        setTimeout(() => setFormStatus('idle'), 3000);
+      } else {
+        throw new Error(data.message || 'Failed to submit form');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      
+      setFormStatus('error');
       setTimeout(() => setFormStatus('idle'), 3000);
-    }, 1500);
+    }
   };
   
   const containerVariants = {
