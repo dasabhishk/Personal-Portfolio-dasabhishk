@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- Dark background with rounded corners -->
-  <rect width="32" height="32" rx="6" fill="#1A1A2E"/>
-  
-  <!-- Create a gradient for the text - purple to blue -->
+  <!-- Create a gradient for the text -->
   <defs>
     <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#8A2BE2" />
-      <stop offset="100%" stop-color="#4169E1" />
+      <stop offset="0%" stop-color="#8A2BE2" /> <!-- Purple -->
+      <stop offset="100%" stop-color="#4169E1" /> <!-- Royal Blue -->
     </linearGradient>
   </defs>
   
-  <!-- Text elements with proper spacing and styling -->
-  <text x="4" y="21" font-family="'Space Mono', monospace" font-weight="700" font-size="12" fill="#6A6A8E">&lt;</text>
-  <text x="10" y="21" font-family="'Space Mono', monospace" font-weight="700" font-size="12" fill="url(#textGradient)">ABD</text>
-  <text x="24" y="21" font-family="'Space Mono', monospace" font-weight="700" font-size="12" fill="#6A6A8E">/&gt;</text>
-  
-  <!-- Subtle glow effect -->
-  <circle cx="16" cy="16" r="14" fill="url(#textGradient)" opacity="0.05" />
+  <!-- Simple "ABD" text -->
+  <text 
+    x="1" 
+    y="24" 
+    font-family="'Space Mono', monospace" 
+    font-weight="700" 
+    font-size="20" 
+    fill="url(#textGradient)"
+  >ABD</text>
 </svg>
