@@ -102,10 +102,10 @@ const Contact = () => {
       link: "mailto:d.abhishek1999@gmail.com",
     },
     {
-      title: "YouTube",
-      icon: "ri-youtube-line",
-      value: "youtube.com/@190HITMAN",
-      link: "https://www.youtube.com/@190HITMAN",
+      title: "LinkedIn",
+      icon: "ri-linkedin-box-line",
+      value: "linkedin.com/in/abhishek-das99",
+      link: "https://www.linkedin.com/in/abhishek-das99/",
     },
     {
       title: "GitHub",
