@@ -1,0 +1,56 @@
+Create a modern, visually immersive personal portfolio website for a Software Engineer at Philips, specializing in backend engineering (.NET, AWS ecosystem, SQL).
+
+The design should feature:
+
+🧠 Personal Branding
+Clean, minimal layout with dark theme (developer aesthetic).
+
+Prominent intro section with my name, role (Software Engineer @ Philips), and a short tagline like: "Building resilient cloud-native backend systems."
+
+Add clearly visible placeholders for my social profiles: LinkedIn, GitHub, Email.
+
+🎮 3D and Three.js Integration
+Include a Three.js canvas as a hero background or spotlight section that showcases:
+
+A rotating, glowing 3D wireframe sphere or cube representing a "cloud-based backend".
+
+Floating tech icons or logos (AWS, C#, .NET, Prometheus, Grafana) in orbit using Three.js.
+
+Smooth animations using shaders or particles to make it feel alive and responsive to scroll or mouse.
+
+Optionally, create an interactive Three.js component:
+
+"Tech Stack Constellation" – each star is a tech I use (hover to highlight, click to learn more).
+
+🔥 Animations & Transitions
+Smooth page transitions with fade/slide.
+
+Animate skill bars or timeline entries using scroll-triggered effects (GSAP or native CSS).
+
+Use Framer Motion for animated cards showing featured projects.
+
+📁 Portfolio Structure
+Hero Section – Name, tagline, 3D canvas
+
+About Me – Bio, skills, short story
+
+Experience – Timeline showcasing Philips & previous roles
+
+Projects – Card layout with thumbnail, tags, and a "View Project" button
+
+Blog / Insights (Optional) – Placeholder for future articles
+
+Contact – Form + social links
+
+🧩 Tech Theme Ideas
+Use a sci-fi, cyberpunk, or digital grid inspired theme to match an advanced software engineer identity. Think:
+
+Matrix code background (low opacity)
+
+Digital glitch effects or cursor trails
+
+Light + dark toggle with glowing UI elements
+
+✳️ Ensure everything is responsive and loads fast despite 3D usage. Prioritize WebGL optimization and lazy-load non-critical scripts.
+
+Finally, make sure it feels like a living space – where creativity and code blend.
