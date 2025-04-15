@@ -84,8 +84,9 @@ const Hero = ({ onContactClick, onProjectsClick }: HeroProps) => {
               className="text-muted-foreground max-w-md mx-auto md:mx-0 mb-8"
               variants={itemVariants}
             >
-              Backend specialist at Philips, working with .NET, AWS ecosystem,
-              and SQL to create scalable and maintainable systems.
+              Backend engineer at Philips healthcare, working with .NET, AWS
+              ecosystem, databases and C# to create scalable and maintainable
+              systems.
             </motion.p>
 
             <motion.div
@@ -154,9 +155,12 @@ const Hero = ({ onContactClick, onProjectsClick }: HeroProps) => {
           aria-label="Scroll to About Me section"
           onClick={(e) => {
             e.preventDefault();
-            const aboutSection = document.getElementById('about');
+            const aboutSection = document.getElementById("about");
             if (aboutSection) {
-              aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+              aboutSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
             }
           }}
         >
