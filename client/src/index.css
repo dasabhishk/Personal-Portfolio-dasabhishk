@@ -163,9 +163,58 @@
     100% { background-position: 1000px 0; }
   }
   
+  @keyframes gradient-flash {
+    0% { 
+      background-position: 0% 50%;
+      color: rgba(138, 43, 226, 1); 
+    }
+    50% { 
+      background-position: 100% 50%;
+      color: rgba(0, 255, 255, 1); 
+    }
+    100% { 
+      background-position: 0% 50%;
+      color: rgba(138, 43, 226, 1); 
+    }
+  }
+  
+  @keyframes wiggle {
+    0%, 100% { transform: rotate(0deg); }
+    25% { transform: rotate(-5deg) scale(1.05); }
+    50% { transform: rotate(0deg) scale(1.1); }
+    75% { transform: rotate(5deg) scale(1.05); }
+  }
+  
+  .animate-wiggle {
+    animation: wiggle 0.8s ease-in-out;
+  }
+  
   .background-shimmer {
     position: relative;
     overflow: hidden;
+  }
+  
+  .logo-gradient {
+    background-size: 200% 200%;
+    background-image: linear-gradient(45deg, var(--primary), var(--secondary), var(--primary));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    transition: all 0.3s ease;
+  }
+  
+  .logo-flash:hover, .logo-flash:active {
+    animation: gradient-flash 2s ease infinite;
+    background-image: linear-gradient(45deg, 
+      rgba(138, 43, 226, 1), 
+      rgba(0, 255, 255, 1), 
+      rgba(138, 43, 226, 1)
+    );
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0 0 10px rgba(138, 43, 226, 0.5);
   }
   
   .background-shimmer::after {
