@@ -132,12 +132,30 @@
     100% { box-shadow: 0 0 10px rgba(138, 43, 226, 0.7), 0 0 20px rgba(138, 43, 226, 0.5), 0 0 30px rgba(138, 43, 226, 0.3); }
   }
   
+  @keyframes subtle-pulse {
+    0% { box-shadow: 0 0 3px rgba(138, 43, 226, 0.3); }
+    50% { box-shadow: 0 0 8px rgba(138, 43, 226, 0.5); }
+    100% { box-shadow: 0 0 3px rgba(138, 43, 226, 0.3); }
+  }
+  
   .animate-float {
     animation: float 3s ease-in-out infinite;
   }
   
   .animate-glow {
     animation: glow 2s ease-in-out infinite alternate;
+  }
+  
+  .strength-item {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid transparent;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .strength-item:hover {
+    border-color: rgba(var(--color-primary), 0.5);
+    animation: subtle-pulse 2s infinite ease-in-out;
   }
   
   @keyframes shimmer {
