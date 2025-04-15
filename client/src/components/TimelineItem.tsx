@@ -4,6 +4,7 @@ type TimelineItemProps = {
   title: string;
   company: string;
   period: string;
+  location?: string;
   description: string;
   bullets: string[];
   tags: string[];
@@ -15,6 +16,7 @@ const TimelineItem = ({
   title, 
   company, 
   period, 
+  location,
   description, 
   bullets, 
   tags, 
@@ -38,13 +40,19 @@ const TimelineItem = ({
         className="bg-card p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
         whileHover={{ y: -5 }}
       >
-        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-4">
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-2">
           <h3 className="text-xl font-mono font-bold text-secondary">{title}</h3>
           <div className="flex items-center mt-2 md:mt-0">
             <span className="text-muted-foreground mr-2">{company}</span>
             <span className="bg-primary/20 text-primary text-xs px-2 py-1 rounded font-mono">{period}</span>
           </div>
         </div>
+        {location && (
+          <div className="flex items-center mb-3 text-sm text-muted-foreground">
+            <i className="ri-map-pin-line mr-1"></i>
+            <span>{location}</span>
+          </div>
+        )}
         <p className="text-muted-foreground mb-4">
           {description}
         </p>
