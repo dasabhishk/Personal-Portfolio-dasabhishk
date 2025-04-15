@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 222 47% 11%;
+    --foreground: 0 0% 90%;
+    
+    --card: 222 30% 14%;
+    --card-foreground: 0 0% 90%;
+    
+    --primary: 271 76% 53%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 180 100% 50%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --accent: 345 100% 66%;
+    --accent-foreground: 0 0% 100%;
+    
+    --muted: 223 36% 25%;
+    --muted-foreground: 0 0% 80%;
+    
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 223 36% 25%;
+    --input: 223 36% 25%;
+    --ring: 271 76% 53%;
+    
+    --radius: 0.5rem;
+  }
+  
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply font-sans antialiased bg-background text-foreground overflow-x-hidden;
+  }
+  
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    @apply bg-background;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    @apply bg-primary rounded-md;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-primary/80;
+  }
+}
+
+@layer components {
+  .matrix-bg {
+    background-image: url('/src/assets/matrix-bg.svg');
+  }
+  
+  .digital-grid {
+    background-image: linear-gradient(rgba(138, 43, 226, 0.1) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(138, 43, 226, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+  
+  .glow-border {
+    box-shadow: 0 0 5px rgba(138, 43, 226, 0.5), 0 0 10px rgba(138, 43, 226, 0.3);
+    transition: box-shadow 0.3s ease;
+  }
+  
+  .glow-border:hover {
+    box-shadow: 0 0 10px rgba(138, 43, 226, 0.7), 0 0 20px rgba(138, 43, 226, 0.5), 0 0 30px rgba(138, 43, 226, 0.3);
+  }
+  
+  .tech-stack-item {
+    transition: all 0.3s ease;
+  }
+  
+  .tech-stack-item:hover {
+    transform: scale(1.05);
+  }
+  
+  .typewriter-cursor {
+    @apply inline-block w-3 h-6 ml-1 bg-primary;
+    animation: cursorBlink 1s step-end infinite;
+  }
+  
+  @keyframes cursorBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+  
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+  
+  @keyframes glow {
+    0% { box-shadow: 0 0 5px rgba(138, 43, 226, 0.5), 0 0 10px rgba(138, 43, 226, 0.3); }
+    100% { box-shadow: 0 0 10px rgba(138, 43, 226, 0.7), 0 0 20px rgba(138, 43, 226, 0.5), 0 0 30px rgba(138, 43, 226, 0.3); }
+  }
+  
+  .animate-float {
+    animation: float 3s ease-in-out infinite;
+  }
+  
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite alternate;
+  }
+}
