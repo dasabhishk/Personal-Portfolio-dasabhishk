@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { FaAws } from 'react-icons/fa';
-import { SiDotnet, SiPrometheus, SiGrafana, SiPostgresql } from 'react-icons/si';
+import { SiDotnet, SiPrometheus, SiGrafana, SiPostgresql, SiSharp, SiMysql } from 'react-icons/si';
 
 type TechStackItemProps = {
   name: string;
@@ -21,9 +21,9 @@ const TechStackItem = ({ name, icon, color }: TechStackItemProps) => {
       case '.NET':
         return <SiDotnet size={24} color={color} />;
       case 'C#':
-        return <i className={`${icon} text-3xl`} style={{ color }}></i>;
+        return <SiSharp size={24} color={color} />;
       case 'SQL':
-        return <SiPostgresql size={24} color={color} />;
+        return <SiMysql size={24} color={color} />;
       case 'Prometheus':
         return <SiPrometheus size={24} color={color} />;
       case 'Grafana':
@@ -44,15 +44,20 @@ const TechStackItem = ({ name, icon, color }: TechStackItemProps) => {
     >
       <motion.div 
         className="h-12 flex items-center justify-center"
+        // Only animate on hover and stop animation when not hovered
+        initial={{ y: 0 }}
         animate={{
           y: isHovered ? [-3, 3, -3] : 0
         }}
-        transition={{
+        transition={isHovered ? {
           duration: 1.5,
           repeat: Infinity,
           repeatType: 'loop',
           ease: 'easeInOut',
           times: [0, 0.5, 1]
+        } : {
+          duration: 0.3,
+          ease: 'easeOut'
         }}
       >
         {renderIcon()}
