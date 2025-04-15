@@ -149,10 +149,23 @@ const Hero = ({ onContactClick, onProjectsClick }: HeroProps) => {
 
       <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 animate-bounce">
         <a
-          href="#"
-          className="text-foreground opacity-50 hover:opacity-100 transition-opacity"
+          href="#about"
+          className="text-foreground opacity-50 hover:opacity-100 transition-opacity group"
+          aria-label="Scroll to About Me section"
+          onClick={(e) => {
+            e.preventDefault();
+            const aboutSection = document.getElementById('about');
+            if (aboutSection) {
+              aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }}
         >
-          <i className="ri-arrow-down-line text-2xl"></i>
+          <div className="relative">
+            <i className="ri-arrow-down-line text-2xl group-hover:text-primary transition-colors"></i>
+            <span className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-xs px-2 py-1 rounded-md bg-background/70 backdrop-blur-sm border border-primary/20 shadow-sm opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap">
+              About Me
+            </span>
+          </div>
         </a>
       </div>
     </section>
