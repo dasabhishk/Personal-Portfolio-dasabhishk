@@ -19,8 +19,8 @@ export const experienceItems = [
   {
     title: 'Software Engineer II',
     company: 'Philips',
-    period: 'Nov 2023 - Present',
-    description: 'Working as a Software Engineer II in the Cardiovascular Imaging team, with a focus on developing product-related serviceability tools.',
+    period: 'Nov 2023 - Present (1 yr 6 mos)',
+    description: 'Currently working as a Software Engineer II in the Cardiovascular Imaging team, with a focus on developing product-related serviceability tools.',
     bullets: [
       'Application design and decision, feature definition, creating tools from scratch',
       'Leading backend service development for core features',
@@ -28,12 +28,12 @@ export const experienceItems = [
       'Supported packaging and deployment of the application on client systems',
       'Mentoring junior developers and conducting design/code reviews, knowledge sharing sessions'
     ],
-    tags: ['C#', '.NET Core', 'AWS', 'SQL', 'Docker', 'Containerization', 'Prometheus', 'Grafana', 'Github Actions', 'CI/CD', 'Microservices', 'Powershell', 'Scripting', 'WiX', 'Unit Testing', 'Agile']
+    tags: ['.NET Core', 'AWS', 'SQL', 'Docker', 'Containerization', 'Prometheus', 'Grafana', 'Github Actions', 'CI/CD', 'Microservices', 'Powershell', 'Scripting', 'WiX', 'Unit Testing', 'Agile']
   },
   {
     title: 'Software Engineer',
     company: 'Philips',
-    period: 'Aug 2022 - Dec 2023',
+    period: 'Aug 2022 - Dec 2023 (1 yr 5 mos)',
     description: 'Worked on core backend systems for Electronic Medical Records team - interface development and report generation, primarily Java backend development and PL/SQL.',
     bullets: [
       'Designed & developed Java interfaces and APIs',
@@ -46,7 +46,7 @@ export const experienceItems = [
   {
     title: 'Intern',
     company: 'Philips',
-    period: 'Mar 2022 - Aug 2022',
+    period: 'Mar 2022 - Aug 2022 (6 mos)',
     description: 'Interned as part of the healthcare R&D EMR&CM team.',
     bullets: [
       'Built internal BI dashboards to support better tracking for service orders',
@@ -111,10 +111,10 @@ export const projects = [
 
 export const socialLinks = [
   {
-    title: 'Email',
-    icon: 'ri-mail-line',
-    value: 'john.doe@example.com',
-    link: 'mailto:john.doe@example.com'
+    title: 'X',
+    icon: 'ri-twitter-x-line',
+    value: 'twitter.com/johndoe',
+    link: 'https://twitter.com/johndoe'
   },
   {
     title: 'LinkedIn',
@@ -129,9 +129,9 @@ export const socialLinks = [
     link: 'https://github.com/johndoe'
   },
   {
-    title: 'Location',
-    icon: 'ri-map-pin-line',
-    value: 'Amsterdam, Netherlands',
-    link: null
+    title: 'Discord',
+    icon: 'ri-discord-line',
+    value: 'discordapp.com/users/johndoe',
+    link: 'https://discordapp.com/users/johndoe'
   }
 ];
