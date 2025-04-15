@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg width="64" height="64" viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg">
   <!-- Create a gradient for the text -->
   <defs>
     <linearGradient id="textGradient" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -8,16 +8,15 @@
     </linearGradient>
   </defs>
   
-  <!-- Adjusted "ABD" text to ensure full visibility -->
-  <g transform="scale(0.85) translate(2, 3)">
-    <text 
-      x="0" 
-      y="22" 
-      font-family="Arial, sans-serif" 
-      font-weight="bold" 
-      font-size="18" 
-      fill="url(#textGradient)"
-      text-anchor="start"
-    >ABD</text>
-  </g>
+  <!-- Simple centered ABD text -->
+  <rect width="64" height="64" fill="none" />
+  <text 
+    x="32" 
+    y="38" 
+    font-family="Arial, sans-serif" 
+    font-weight="bold" 
+    font-size="24" 
+    fill="url(#textGradient)"
+    text-anchor="middle"
+  >ABD</text>
 </svg>
