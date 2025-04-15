@@ -8,13 +8,16 @@
     </linearGradient>
   </defs>
   
-  <!-- Simple "ABD" text -->
-  <text 
-    x="1" 
-    y="24" 
-    font-family="'Space Mono', monospace" 
-    font-weight="700" 
-    font-size="20" 
-    fill="url(#textGradient)"
-  >ABD</text>
+  <!-- Adjusted "ABD" text to ensure full visibility -->
+  <g transform="scale(0.85) translate(2, 3)">
+    <text 
+      x="0" 
+      y="22" 
+      font-family="Arial, sans-serif" 
+      font-weight="bold" 
+      font-size="18" 
+      fill="url(#textGradient)"
+      text-anchor="start"
+    >ABD</text>
+  </g>
 </svg>
