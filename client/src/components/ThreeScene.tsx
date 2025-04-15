@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { useTheme } from '@/context/ThemeContext';
 
@@ -10,6 +10,10 @@ const ThreeScene = () => {
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
   const sphereRef = useRef<THREE.Mesh | null>(null);
   const particlesMeshRef = useRef<THREE.Points | null>(null);
+  
+  // Mouse position tracking
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const [isHovering, setIsHovering] = useState(false);
   
   useEffect(() => {
     const initThree = () => {
@@ -71,11 +75,38 @@ const ThreeScene = () => {
       // Animation function
       const animate = () => {
         if (sphereRef.current && particlesMeshRef.current) {
-          sphereRef.current.rotation.x += 0.001;
-          sphereRef.current.rotation.y += 0.002;
+          // Default rotation when not hovering
+          if (!isHovering) {
+            sphereRef.current.rotation.x += 0.001;
+            sphereRef.current.rotation.y += 0.002;
+            
+            particlesMeshRef.current.rotation.x -= 0.0005;
+            particlesMeshRef.current.rotation.y -= 0.0005;
+          } else {
+            // Interactive rotation based on mouse position
+            // Map mousePosition from screen coordinates to rotation values
+            const rotationSpeed = 0.05;
+            const targetRotationX = (mousePosition.y * rotationSpeed);
+            const targetRotationY = (mousePosition.x * rotationSpeed);
+            
+            // Smooth rotation with lerp (linear interpolation)
+            sphereRef.current.rotation.x += (targetRotationX - sphereRef.current.rotation.x) * 0.05;
+            sphereRef.current.rotation.y += (targetRotationY - sphereRef.current.rotation.y) * 0.05;
+            
+            // Make particles follow in opposite direction with delay
+            particlesMeshRef.current.rotation.x += (targetRotationX * -0.3 - particlesMeshRef.current.rotation.x) * 0.01;
+            particlesMeshRef.current.rotation.y += (targetRotationY * -0.3 - particlesMeshRef.current.rotation.y) * 0.01;
+            
+            // Scale effect on hover
+            sphereRef.current.scale.set(1.05, 1.05, 1.05);
+            particlesMeshRef.current.scale.set(1.02, 1.02, 1.02);
+          }
           
-          particlesMeshRef.current.rotation.x -= 0.0005;
-          particlesMeshRef.current.rotation.y -= 0.0005;
+          // Reset scale when not hovering
+          if (!isHovering) {
+            sphereRef.current.scale.set(1, 1, 1);
+            particlesMeshRef.current.scale.set(1, 1, 1);
+          }
         }
         
         if (rendererRef.current && sceneRef.current && cameraRef.current) {
@@ -124,7 +155,73 @@ const ThreeScene = () => {
     }
   }, [isDarkMode]);
   
-  return <div ref={mountRef} className="absolute top-0 left-0 w-full h-screen z-0" />;
+  // Add mouse interaction handlers
+  useEffect(() => {
+    // Normalize coordinates to be centered (from -1 to 1)
+    const handleMouseMove = (event: MouseEvent) => {
+      if (mountRef.current) {
+        // Calculate normalized position (-1 to 1)
+        setMousePosition({
+          x: (event.clientX / window.innerWidth) * 2 - 1,
+          y: -(event.clientY / window.innerHeight) * 2 + 1
+        });
+      }
+    };
+    
+    const handleMouseEnter = () => {
+      setIsHovering(true);
+      
+      // Enhance wireframe visibility on hover
+      if (sphereRef.current) {
+        (sphereRef.current.material as THREE.MeshBasicMaterial).opacity = 0.5;
+      }
+      
+      // Increase particles size on hover
+      if (particlesMeshRef.current) {
+        (particlesMeshRef.current.material as THREE.PointsMaterial).size = 0.08;
+      }
+    };
+    
+    const handleMouseLeave = () => {
+      setIsHovering(false);
+      
+      // Reset wireframe visibility
+      if (sphereRef.current) {
+        (sphereRef.current.material as THREE.MeshBasicMaterial).opacity = 0.3;
+      }
+      
+      // Reset particles size
+      if (particlesMeshRef.current) {
+        (particlesMeshRef.current.material as THREE.PointsMaterial).size = 0.05;
+      }
+    };
+    
+    // Add event listeners
+    window.addEventListener('mousemove', handleMouseMove);
+    
+    if (mountRef.current) {
+      mountRef.current.addEventListener('mouseenter', handleMouseEnter);
+      mountRef.current.addEventListener('mouseleave', handleMouseLeave);
+    }
+    
+    // Cleanup
+    return () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      
+      if (mountRef.current) {
+        mountRef.current.removeEventListener('mouseenter', handleMouseEnter);
+        mountRef.current.removeEventListener('mouseleave', handleMouseLeave);
+      }
+    };
+  }, []);
+  
+  return (
+    <div 
+      ref={mountRef} 
+      className="absolute top-0 left-0 w-full h-screen z-0" 
+      style={{ cursor: isHovering ? 'pointer' : 'default' }}
+    />
+  );
 };
 
 export default ThreeScene;
