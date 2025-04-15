@@ -19,7 +19,17 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     // Check if user has a theme preference in localStorage
     const storedTheme = localStorage.getItem('theme');
     if (storedTheme) {
-      setIsDarkMode(storedTheme === 'dark');
+      const isDark = storedTheme === 'dark';
+      setIsDarkMode(isDark);
+      
+      // Apply appropriate theme class
+      if (isDark) {
+        document.documentElement.classList.add('dark');
+        document.documentElement.classList.remove('light-theme');
+      } else {
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light-theme');
+      }
     }
   }, []);
 
@@ -28,11 +38,13 @@ export const ThemeProvider = ({ children }: { children: ReactNode }) => {
     setIsDarkMode(newTheme);
     localStorage.setItem('theme', newTheme ? 'dark' : 'light');
     
-    // Apply/remove dark mode class to document for tailwind
+    // Apply/remove theme classes
     if (newTheme) {
       document.documentElement.classList.add('dark');
+      document.documentElement.classList.remove('light-theme');
     } else {
       document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light-theme');
     }
   };
 

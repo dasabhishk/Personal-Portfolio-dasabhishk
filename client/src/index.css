@@ -32,6 +32,33 @@
     --radius: 0.5rem;
   }
   
+  .light-theme {
+    --background: 0 0% 98%;
+    --foreground: 222 47% 11%;
+    
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    
+    --primary: 271 76% 53%;
+    --primary-foreground: 0 0% 100%;
+    
+    --secondary: 180 100% 45%;
+    --secondary-foreground: 0 0% 100%;
+    
+    --accent: 345 100% 66%;
+    --accent-foreground: 0 0% 100%;
+    
+    --muted: 210 20% 90%;
+    --muted-foreground: 222 47% 30%;
+    
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+    
+    --border: 220 13% 85%;
+    --input: 220 13% 85%;
+    --ring: 271 76% 53%;
+  }
+  
   * {
     @apply border-border;
   }
