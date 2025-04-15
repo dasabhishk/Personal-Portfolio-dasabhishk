@@ -19,45 +19,45 @@ export const experienceItems = [
   {
     title: 'Software Engineer II',
     company: 'Philips',
-    period: 'Nov 2023 – Present (1 yr 6 mos)',
+    period: 'Nov 2023 – Present',
     location: 'Bengaluru, India',
-    description: 'Currently working as a Software Engineer II in the Cardiovascular Imaging team, with a focus on developing product-related serviceability tools.',
+    description: 'Working in the Cardiovascular Imaging team, focusing on product-related serviceability tools and backend development.',
     bullets: [
-      'Owned end-to-end application design, feature definition, and tool creation',
-      'Led backend development for key serviceability features',
-      'Integrated the Prometheus–Grafana Alloy monitoring pipeline',
-      'Supported MSI packaging and client-side deployment workflows',
-      'Mentored junior developers, led design/code reviews, and hosted knowledge sessions'
+      'Owned application design, feature definition, and created tools from scratch',
+      'Led backend service development for core product features',
+      'Integrated Prometheus-Grafana Alloy workflow for metrics collection',
+      'Packaged and deployed the application to client systems',
+      'Mentored junior developers, conducted code reviews, and hosted knowledge sharing sessions'
     ],
     tags: ['C#', '.NET Core', 'AWS', 'PL/SQL', 'Docker', 'Containerization', 'Prometheus', 'Grafana', 'GitHub Actions', 'CI/CD', 'PowerShell', 'WiX', 'Unit Testing', 'Agile']
   },
   {
     title: 'Software Engineer',
     company: 'Philips',
-    period: 'Aug 2022 – Dec 2023 (1 yr 5 mos)',
+    period: 'Aug 2022 – Dec 2023',
     location: 'Bengaluru, India',
-    description: 'Worked in the Electronic Medical Records team focusing on interface development and report generation, with emphasis on Java backend development and PL/SQL optimization.',
+    description: 'Worked in the Electronic Medical Records team, primarily focusing on backend Java development and PL/SQL-driven report generation.',
     bullets: [
-      'Designed & developed Java-based Interfaces and REST APIs',
-      'Optimized SQL queries, achieving 40% improvement in execution time',
-      'Designed and generated clinical reports supporting hospital workflows',
-      'Maintained internal tools for automation and schema search across large databases'
+      'Designed and developed Java Interfaces and REST APIs',
+      'Improved SQL query performance by 40% through tuning and indexing',
+      'Designed and generated clinical workflow reports',
+      'Maintained internal automation tools and schema search utilities'
     ],
-    tags: ['Java', 'Spring Boot', 'Spring', 'AWS', 'PL/SQL', 'REST API Design', 'Postman', 'Agile', 'MVC']
+    tags: ['Java', 'Spring Boot', 'Spring', 'AWS', 'PL/SQL', 'REST', 'API Design', 'Postman', 'Agile', 'MVC']
   },
   {
     title: 'Intern',
     company: 'Philips',
-    period: 'Mar 2022 – Aug 2022 (6 mos)',
+    period: 'Mar 2022 – Aug 2022',
     location: 'Bengaluru, India',
-    description: 'Interned in the EMR & CM R&D team supporting internal tooling, automation, and team enablement activities.',
+    description: 'Interned with the EMR & CM team, contributing to service order dashboards and automation tools.',
     bullets: [
-      'Built BI dashboards for service order analytics and operational tracking',
-      'Developed validation scripts for algorithm efficiency improvement',
-      'Conducted knowledge sessions on Gen AI and AWS fundamentals',
-      'Participated in Agile sprint ceremonies and collaborative backlog grooming'
+      'Built Power BI dashboards to track service orders and operational metrics',
+      'Wrote validation scripts for algorithm optimization in healthcare workflows',
+      'Delivered knowledge sessions on Gen AI and AWS basics for the team',
+      'Participated in Agile ceremonies and contributed to backlog grooming'
     ],
-    tags: ['Python', 'Power BI', 'Analytics', 'Visualization', 'Agile', 'PL/SQL', 'Reporting', 'Automation']
+    tags: ['Python', 'Power BI', 'Analytics', 'Visualization', 'Agile', 'PL/SQL', 'Reporting Automation']
   }
 ];
 
