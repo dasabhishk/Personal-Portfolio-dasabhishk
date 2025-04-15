@@ -32,7 +32,7 @@ const Navbar = ({ onAboutClick, onExperienceClick, onProjectsClick, onContactCli
         >
           <span className="text-muted-foreground">&lt;</span>
           <motion.span 
-            className={`logo-flash logo-gradient ${isLogoWiggling ? 'animate-[wiggle_0.8s_ease-in-out]' : ''}`}
+            className={`logo-flash logo-gradient ${isLogoWiggling ? 'animate-wiggle' : ''}`}
             whileTap={{ scale: 0.95 }}
           >
             ABD
