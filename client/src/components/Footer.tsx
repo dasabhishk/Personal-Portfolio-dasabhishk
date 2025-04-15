@@ -1,14 +1,19 @@
 import { motion } from 'framer-motion';
 import { useState, useCallback } from 'react';
 
-const Footer = () => {
+type FooterProps = {
+  onLogoClick: () => void;
+};
+
+const Footer = ({ onLogoClick }: FooterProps) => {
   const currentYear = new Date().getFullYear();
   const [isLogoWiggling, setIsLogoWiggling] = useState(false);
   
   const handleLogoClick = useCallback(() => {
     setIsLogoWiggling(true);
     setTimeout(() => setIsLogoWiggling(false), 800); // Duration of wiggle animation
-  }, []);
+    onLogoClick(); // Scroll to top
+  }, [onLogoClick]);
   
   return (
     <footer className="py-8 bg-background border-t border-primary/20">
@@ -38,6 +43,7 @@ const Footer = () => {
           <div className="mt-4 md:mt-0 flex items-center">
             <motion.a 
               href="#" 
+              onClick={onLogoClick}
               className="text-muted-foreground hover:text-primary transition-colors"
               whileHover={{ y: -3 }}
               whileTap={{ scale: 0.95 }}

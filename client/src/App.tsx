@@ -59,7 +59,7 @@ function App() {
       <div ref={contactRef}>
         <Contact />
       </div>
-      <Footer />
+      <Footer onLogoClick={scrollToTop} />
     </div>
   );
 }
