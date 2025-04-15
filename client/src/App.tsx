@@ -28,10 +28,17 @@ function App() {
   };
 
   const scrollToTop = () => {
+    // Prevent default browser behavior that might cause jumpiness
+    document.body.style.scrollBehavior = 'smooth';
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
+    
+    // Reset scroll behavior after animation completes
+    setTimeout(() => {
+      document.body.style.scrollBehavior = '';
+    }, 1000);
   };
 
   return (

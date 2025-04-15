@@ -32,14 +32,21 @@ const Navbar = ({ onLogoClick, onAboutClick, onExperienceClick, onProjectsClick,
           className="text-xl md:text-2xl font-mono font-bold flex items-center gap-2 group cursor-pointer"
           onClick={handleLogoClick}
         >
-          <span className="text-muted-foreground">&lt;</span>
           <motion.span 
-            className={`logo-flash logo-text ${isLogoWiggling ? 'animate-wiggle' : ''}`}
+            className={`text-muted-foreground ${isLogoWiggling ? 'animate-wiggle' : ''}`}
             whileTap={{ scale: 0.95 }}
           >
-            ABD
+            &lt;
           </motion.span>
-          <span className="text-muted-foreground">/&gt;</span>
+          <span className="logo-flash logo-text">
+            ABD
+          </span>
+          <motion.span 
+            className={`text-muted-foreground ${isLogoWiggling ? 'animate-wiggle' : ''}`}
+            whileTap={{ scale: 0.95 }}
+          >
+            /&gt;
+          </motion.span>
         </a>
         
         <div className="hidden md:flex space-x-8 items-center">

@@ -25,14 +25,21 @@ const Footer = ({ onLogoClick }: FooterProps) => {
               className="text-xl font-mono font-bold flex items-center gap-2 cursor-pointer"
               onClick={handleLogoClick}
             >
-              <span className="text-muted-foreground">&lt;</span>
               <motion.span 
-                className={`logo-flash logo-text ${isLogoWiggling ? 'animate-wiggle' : ''}`}
+                className={`text-muted-foreground ${isLogoWiggling ? 'animate-wiggle' : ''}`}
                 whileTap={{ scale: 0.95 }}
               >
-                ABD
+                &lt;
               </motion.span>
-              <span className="text-muted-foreground">/&gt;</span>
+              <span className="logo-flash logo-text">
+                ABD
+              </span>
+              <motion.span 
+                className={`text-muted-foreground ${isLogoWiggling ? 'animate-wiggle' : ''}`}
+                whileTap={{ scale: 0.95 }}
+              >
+                /&gt;
+              </motion.span>
             </a>
           </div>
           
