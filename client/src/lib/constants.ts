@@ -120,10 +120,10 @@ export const socialLinks = [
     link: 'https://twitter.com/johndoe'
   },
   {
-    title: 'LinkedIn',
-    icon: 'ri-linkedin-box-line',
-    value: 'linkedin.com/in/johndoe',
-    link: 'https://linkedin.com/in/johndoe'
+    title: 'YouTube',
+    icon: 'ri-youtube-line',
+    value: 'youtube.com/@190HITMAN',
+    link: 'https://www.youtube.com/@190HITMAN'
   },
   {
     title: 'GitHub',
