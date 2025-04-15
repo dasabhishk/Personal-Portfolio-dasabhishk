@@ -73,20 +73,20 @@ const Contact = () => {
     {
       title: 'Email',
       icon: 'ri-mail-line',
-      value: 'john.doe@example.com',
-      link: 'mailto:john.doe@example.com'
+      value: 'abhishek.das@example.com',
+      link: 'mailto:abhishek.das@example.com'
     },
     {
       title: 'LinkedIn',
       icon: 'ri-linkedin-box-line',
-      value: 'linkedin.com/in/johndoe',
-      link: 'https://linkedin.com/in/johndoe'
+      value: 'linkedin.com/in/abhishekdas',
+      link: 'https://linkedin.com/in/abhishekdas'
     },
     {
       title: 'GitHub',
       icon: 'ri-github-line',
-      value: 'github.com/johndoe',
-      link: 'https://github.com/johndoe'
+      value: 'github.com/abhishekdas',
+      link: 'https://github.com/abhishekdas'
     },
     {
       title: 'Location',

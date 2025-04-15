@@ -137,9 +137,13 @@ const About = () => {
               {strengths.map((strength, index) => (
                 <motion.div 
                   key={index}
-                  className="bg-card p-5 rounded-lg shadow-md"
+                  className="bg-card p-5 rounded-lg shadow-md hover:glow-border transition-all duration-300"
                   variants={itemVariants}
                   custom={index}
+                  whileHover={{ 
+                    boxShadow: "0 0 15px rgba(var(--color-primary), 0.5)",
+                    y: -5
+                  }}
                 >
                   <div className="text-2xl text-primary mb-2">
                     <i className={strength.icon}></i>

@@ -1,5 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import Typed from 'typed.js';
 
 type HeroProps = {
   onContactClick: () => void;
@@ -7,22 +8,26 @@ type HeroProps = {
 };
 
 const Hero = ({ onContactClick, onProjectsClick }: HeroProps) => {
-  const [text, setText] = useState('');
-  const fullText = 'Building resilient cloud-native backend systems';
+  const typedElementRef = useRef<HTMLDivElement>(null);
+  const typedInstanceRef = useRef<Typed | null>(null);
   
   useEffect(() => {
-    let currentIndex = 0;
+    if (typedElementRef.current) {
+      typedInstanceRef.current = new Typed(typedElementRef.current, {
+        strings: ['Building resilient cloud-native backend systems'],
+        typeSpeed: 50,
+        backSpeed: 30,
+        startDelay: 500,
+        loop: false,
+        showCursor: true,
+        cursorChar: '|',
+        autoInsertCss: true,
+      });
+    }
     
-    const typeInterval = setInterval(() => {
-      if (currentIndex < fullText.length) {
-        setText(fullText.substring(0, currentIndex + 1));
-        currentIndex++;
-      } else {
-        clearInterval(typeInterval);
-      }
-    }, 100);
-    
-    return () => clearInterval(typeInterval);
+    return () => {
+      typedInstanceRef.current?.destroy();
+    };
   }, []);
   
   const containerVariants = {
@@ -60,7 +65,7 @@ const Hero = ({ onContactClick, onProjectsClick }: HeroProps) => {
               className="text-4xl md:text-6xl font-mono font-bold mb-4"
               variants={itemVariants}
             >
-              <span className="block text-foreground leading-tight">John Doe</span>
+              <span className="block text-foreground leading-tight">Abhishek Das</span>
               <span className="block text-primary mt-2">Software Engineer</span>
             </motion.h1>
             
@@ -69,9 +74,8 @@ const Hero = ({ onContactClick, onProjectsClick }: HeroProps) => {
               variants={itemVariants}
             >
               <h2 className="text-xl md:text-2xl font-mono text-foreground opacity-90">
-                {text}
+                <span ref={typedElementRef}></span>
               </h2>
-              <span className="typewriter-cursor"></span>
             </motion.div>
             
             <motion.p 
@@ -102,7 +106,7 @@ const Hero = ({ onContactClick, onProjectsClick }: HeroProps) => {
                 <i className="ri-github-fill text-xl"></i>
               </a>
               <a 
-                href="mailto:john.doe@example.com" 
+                href="mailto:abhishek.das@example.com" 
                 className="p-3 rounded-full bg-card text-foreground hover:text-primary transition-colors"
               >
                 <i className="ri-mail-fill text-xl"></i>
