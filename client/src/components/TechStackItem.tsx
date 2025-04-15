@@ -9,12 +9,10 @@ type TechStackItemProps = {
   color: string;
 };
 
-// List of tech that should have hover animations
-const ANIMATED_TECHS = ['.NET', 'C#', 'SQL', 'Prometheus', 'Grafana', 'AWS'];
+// All tech stack items will animate on hover, no need for filtering
 
 const TechStackItem = ({ name, icon, color }: TechStackItemProps) => {
   const [isHovered, setIsHovered] = useState(false);
-  const shouldAnimate = ANIMATED_TECHS.includes(name);
   
   const renderIcon = () => {
     switch(name) {
@@ -47,7 +45,7 @@ const TechStackItem = ({ name, icon, color }: TechStackItemProps) => {
       <motion.div 
         className="h-12 flex items-center justify-center"
         animate={{
-          y: shouldAnimate && isHovered ? [-3, 3, -3] : 0
+          y: isHovered ? [-3, 3, -3] : 0
         }}
         transition={{
           duration: 1.5,

@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useTheme } from '@/context/ThemeContext';
 import { motion } from 'framer-motion';
 
 type NavbarProps = {
@@ -10,7 +9,6 @@ type NavbarProps = {
 };
 
 const Navbar = ({ onAboutClick, onExperienceClick, onProjectsClick, onContactClick }: NavbarProps) => {
-  const { isDarkMode, toggleTheme } = useTheme();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -49,17 +47,6 @@ const Navbar = ({ onAboutClick, onExperienceClick, onProjectsClick, onContactCli
           >
             Contact
           </button>
-          <motion.button 
-            whileTap={{ scale: 0.95 }}
-            onClick={toggleTheme} 
-            className="p-2 rounded-full bg-card hover:bg-muted transition-colors"
-          >
-            {isDarkMode ? (
-              <i className="ri-sun-line text-secondary text-xl"></i>
-            ) : (
-              <i className="ri-moon-line text-secondary text-xl"></i>
-            )}
-          </motion.button>
         </div>
         
         <button 
@@ -119,17 +106,6 @@ const Navbar = ({ onAboutClick, onExperienceClick, onProjectsClick, onContactCli
             >
               Contact
             </button>
-            <motion.button 
-              whileTap={{ scale: 0.95 }}
-              onClick={toggleTheme} 
-              className="p-2 w-fit rounded-full bg-background hover:bg-muted transition-colors"
-            >
-              {isDarkMode ? (
-                <i className="ri-sun-line text-secondary text-xl"></i>
-              ) : (
-                <i className="ri-moon-line text-secondary text-xl"></i>
-              )}
-            </motion.button>
           </div>
         </motion.div>
       )}
