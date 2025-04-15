@@ -7,8 +7,12 @@ type TechStackItemProps = {
   color: string;
 };
 
+// List of tech that should have hover animations
+const ANIMATED_TECHS = ['.NET', 'C#', 'SQL', 'Prometheus', 'Grafana'];
+
 const TechStackItem = ({ name, icon, color }: TechStackItemProps) => {
   const [isHovered, setIsHovered] = useState(false);
+  const shouldAnimate = ANIMATED_TECHS.includes(name);
   
   return (
     <motion.div 
@@ -22,7 +26,7 @@ const TechStackItem = ({ name, icon, color }: TechStackItemProps) => {
       <motion.div 
         className="h-12 flex items-center justify-center"
         animate={{
-          y: isHovered ? [-3, 3, -3] : 0
+          y: shouldAnimate && isHovered ? [-3, 3, -3] : 0
         }}
         transition={{
           duration: 1.5,

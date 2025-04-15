@@ -9,12 +9,12 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
             <a href="#" className="text-xl font-mono font-bold text-primary flex items-center gap-2">
-              <span className="text-muted-foreground">&lt;</span>JD<span className="text-muted-foreground">/&gt;</span>
+              <span className="text-muted-foreground">&lt;</span>ABD<span className="text-muted-foreground">/&gt;</span>
             </a>
           </div>
           
           <div className="text-muted-foreground text-sm">
-            &copy; {currentYear} John Doe. All rights reserved.
+            &copy; {currentYear} Abhishek Das. All rights reserved.
           </div>
           
           <div className="mt-4 md:mt-0 flex items-center">

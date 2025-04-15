@@ -21,7 +21,7 @@ const Navbar = ({ onAboutClick, onExperienceClick, onProjectsClick, onContactCli
     <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-background/70 border-b border-primary/20">
       <div className="container mx-auto px-4 md:px-6 py-4 flex justify-between items-center">
         <a href="#" className="text-xl md:text-2xl font-mono font-bold text-primary flex items-center gap-2">
-          <span className="text-muted-foreground">&lt;</span>JD<span className="text-muted-foreground">/&gt;</span>
+          <span className="text-muted-foreground">&lt;</span>ABD<span className="text-muted-foreground">/&gt;</span>
         </a>
         
         <div className="hidden md:flex space-x-8 items-center">
