@@ -294,7 +294,7 @@ const Contact = () => {
                     rel="noopener noreferrer"
                     className="p-3 bg-background rounded-full text-foreground hover:text-primary transition-colors"
                   >
-                    <i className="ri-twitter-fill text-xl"></i>
+                    <i className="ri-twitter-x-fill text-xl"></i>
                   </a>
                   <a 
                     href="https://linkedin.com" 
@@ -313,20 +313,12 @@ const Contact = () => {
                     <i className="ri-github-fill text-xl"></i>
                   </a>
                   <a 
-                    href="https://dev.to" 
+                    href="https://discord.com" 
                     target="_blank" 
                     rel="noopener noreferrer"
                     className="p-3 bg-background rounded-full text-foreground hover:text-primary transition-colors"
                   >
-                    <i className="ri-dev-to-fill text-xl"></i>
-                  </a>
-                  <a 
-                    href="https://medium.com" 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="p-3 bg-background rounded-full text-foreground hover:text-primary transition-colors"
-                  >
-                    <i className="ri-medium-fill text-xl"></i>
+                    <i className="ri-discord-fill text-xl"></i>
                   </a>
                 </div>
               </div>

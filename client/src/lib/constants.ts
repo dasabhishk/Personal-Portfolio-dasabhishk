@@ -17,43 +17,44 @@ export const techStack = [
 
 export const experienceItems = [
   {
+    title: 'Software Engineer II',
+    company: 'Philips',
+    period: 'Nov 2023 - Present',
+    description: 'Working as a Software Engineer II in the Cardiovascular Imaging team, with a focus on developing product-related serviceability tools.',
+    bullets: [
+      'Application design and decision, feature definition, creating tools from scratch',
+      'Leading backend service development for core features',
+      'Integrated Prometheus-Grafana Alloy workflow',
+      'Supported packaging and deployment of the application on client systems',
+      'Mentoring junior developers and conducting design/code reviews, knowledge sharing sessions'
+    ],
+    tags: ['C#', '.NET Core', 'AWS', 'SQL', 'Docker', 'Containerization', 'Prometheus', 'Grafana', 'Github Actions', 'CI/CD', 'Microservices', 'Powershell', 'Scripting', 'WiX', 'Unit Testing', 'Agile']
+  },
+  {
     title: 'Software Engineer',
     company: 'Philips',
-    period: '2021 - Present',
-    description: 'Leading backend development for healthcare imaging systems using .NET Core, AWS services, and SQL databases.',
+    period: 'Aug 2022 - Dec 2023',
+    description: 'Worked on core backend systems for Electronic Medical Records team - interface development and report generation, primarily Java backend development and PL/SQL.',
     bullets: [
-      'Designed and implemented microservices architecture for medical data processing',
-      'Optimized database queries improving response time by 40%',
-      'Implemented CI/CD pipelines using AWS CodePipeline',
-      'Set up monitoring using Prometheus and Grafana dashboards'
+      'Designed & developed Java interfaces and APIs',
+      'Improved performance of SQL-based queries by 40% through tuning and indexing',
+      'Report design and generation for hospital workflows',
+      'Maintained and extended internal tool for report generation, automation and database schema search'
     ],
-    tags: ['.NET Core', 'AWS', 'SQL', 'Docker', 'Kubernetes']
+    tags: ['Java', 'Spring Boot', 'Spring', 'AWS', 'PL/SQL', 'REST', 'API Design', 'Postman', 'Agile', 'MVC']
   },
   {
-    title: 'Backend Developer',
-    company: 'Healthcare Tech Inc.',
-    period: '2018 - 2021',
-    description: 'Developed and maintained backend services for patient management systems using C# and SQL Server.',
+    title: 'Intern',
+    company: 'Philips',
+    period: 'Mar 2022 - Aug 2022',
+    description: 'Interned as part of the healthcare R&D EMR&CM team.',
     bullets: [
-      'Built RESTful APIs serving over 10,000 daily active users',
-      'Migrated legacy systems to cloud infrastructure',
-      'Implemented data encryption standards for HIPAA compliance',
-      'Created automated test suites achieving 90% code coverage'
+      'Built internal BI dashboards to support better tracking for service orders',
+      'Worked on writing validation scripts for algorithms helping optimize healthcare operations',
+      'Conducted knowledge sharing session on Gen AI, Basics of AWS for entire team',
+      'Participated in Agile sprint planning and daily stand-ups'
     ],
-    tags: ['C#', 'SQL Server', 'Azure', 'Redis']
-  },
-  {
-    title: 'Software Developer',
-    company: 'Tech Solutions Group',
-    period: '2016 - 2018',
-    description: 'Full-stack development with focus on backend technologies and database optimization.',
-    bullets: [
-      'Developed web applications using ASP.NET MVC framework',
-      'Designed and implemented database schemas for various clients',
-      'Created internal development tools to improve team efficiency',
-      'Mentored junior developers in best practices and coding standards'
-    ],
-    tags: ['ASP.NET', 'JavaScript', 'PostgreSQL', 'Git']
+    tags: ['Python', 'Power BI', 'Analytics', 'Visualization', 'Agile', 'PL/SQL', 'Reporting', 'Automation']
   }
 ];
 
