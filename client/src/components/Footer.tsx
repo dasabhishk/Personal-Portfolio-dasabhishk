@@ -1,15 +1,33 @@
 import { motion } from 'framer-motion';
+import { useState, useCallback } from 'react';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
+  const [isLogoWiggling, setIsLogoWiggling] = useState(false);
+  
+  const handleLogoClick = useCallback(() => {
+    setIsLogoWiggling(true);
+    setTimeout(() => setIsLogoWiggling(false), 800); // Duration of wiggle animation
+  }, []);
   
   return (
     <footer className="py-8 bg-background border-t border-primary/20">
       <div className="container mx-auto px-4 md:px-6">
         <div className="flex flex-col md:flex-row justify-between items-center">
           <div className="mb-4 md:mb-0">
-            <a href="#" className="text-xl font-mono font-bold text-primary flex items-center gap-2">
-              <span className="text-muted-foreground">&lt;</span>ABD<span className="text-muted-foreground">/&gt;</span>
+            <a 
+              href="#" 
+              className="text-xl font-mono font-bold flex items-center gap-2 cursor-pointer"
+              onClick={handleLogoClick}
+            >
+              <span className="text-muted-foreground">&lt;</span>
+              <motion.span 
+                className={`logo-flash logo-text ${isLogoWiggling ? 'animate-wiggle' : ''}`}
+                whileTap={{ scale: 0.95 }}
+              >
+                ABD
+              </motion.span>
+              <span className="text-muted-foreground">/&gt;</span>
             </a>
           </div>
           

@@ -12,6 +12,7 @@ import { useTheme } from "./context/ThemeContext";
 
 function App() {
   const { isDarkMode } = useTheme();
+  const topRef = useRef<HTMLDivElement>(null);
   const aboutRef = useRef<HTMLDivElement>(null);
   const experienceRef = useRef<HTMLDivElement>(null);
   const projectsRef = useRef<HTMLDivElement>(null);
@@ -26,9 +27,18 @@ function App() {
     }
   };
 
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  };
+
   return (
     <div className={`${isDarkMode ? 'matrix-bg' : 'bg-gray-50'} min-h-screen relative`}>
+      <div ref={topRef} id="top"></div>
       <Navbar 
+        onLogoClick={scrollToTop}
         onAboutClick={() => scrollToSection(aboutRef)}
         onExperienceClick={() => scrollToSection(experienceRef)}
         onProjectsClick={() => scrollToSection(projectsRef)}

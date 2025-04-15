@@ -3,13 +3,14 @@ import { motion } from 'framer-motion';
 import { useCallback } from 'react';
 
 type NavbarProps = {
+  onLogoClick: () => void;
   onAboutClick: () => void;
   onExperienceClick: () => void;
   onProjectsClick: () => void;
   onContactClick: () => void;
 };
 
-const Navbar = ({ onAboutClick, onExperienceClick, onProjectsClick, onContactClick }: NavbarProps) => {
+const Navbar = ({ onLogoClick, onAboutClick, onExperienceClick, onProjectsClick, onContactClick }: NavbarProps) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLogoWiggling, setIsLogoWiggling] = useState(false);
 
@@ -20,7 +21,8 @@ const Navbar = ({ onAboutClick, onExperienceClick, onProjectsClick, onContactCli
   const handleLogoClick = useCallback(() => {
     setIsLogoWiggling(true);
     setTimeout(() => setIsLogoWiggling(false), 800); // Duration of wiggle animation
-  }, []);
+    onLogoClick(); // Scroll to top
+  }, [onLogoClick]);
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 backdrop-blur-md bg-background/70 border-b border-primary/20">
@@ -32,7 +34,7 @@ const Navbar = ({ onAboutClick, onExperienceClick, onProjectsClick, onContactCli
         >
           <span className="text-muted-foreground">&lt;</span>
           <motion.span 
-            className={`logo-flash logo-gradient ${isLogoWiggling ? 'animate-wiggle' : ''}`}
+            className={`logo-flash logo-text ${isLogoWiggling ? 'animate-wiggle' : ''}`}
             whileTap={{ scale: 0.95 }}
           >
             ABD
