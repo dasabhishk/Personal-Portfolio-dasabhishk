@@ -1,7 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactMessageSchema } from "@shared/schema";
+import { insertContactMessageSchema, insertSubscriberSchema } from "@shared/schema";
 import { z } from "zod";
 import rateLimit from "express-rate-limit";
 
@@ -15,6 +15,18 @@ export async function registerRoutes(app: Express): Promise<Server> {
     message: {
       success: false,
       message: 'Too many contact requests. Please try again after 15 minutes.'
+    }
+  });
+  
+  // Create subscription rate limiter
+  const subscriptionLimiter = rateLimit({
+    windowMs: 60 * 60 * 1000, // 60 minutes
+    limit: 3, // 3 subscription attempts per hour
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+    message: {
+      success: false,
+      message: 'Too many subscription attempts. Please try again after an hour.'
     }
   });
   // API endpoints for projects
@@ -140,6 +152,58 @@ export async function registerRoutes(app: Express): Promise<Server> {
     }
   });
   
+  // Subscribe endpoint with rate limiting
+  app.post('/api/subscribe', subscriptionLimiter, async (req: Request, res: Response) => {
+    try {
+      // Get client IP for logging and security
+      const clientIp = req.ip || req.socket.remoteAddress || 'unknown';
+      
+      // Extract email from request body
+      const { email } = req.body;
+      
+      // Validate the email using Zod schema
+      const validatedSubscriber = insertSubscriberSchema.parse({
+        email,
+        ipAddress: clientIp
+      });
+      
+      // Check if email is already subscribed
+      const existingSubscriber = await storage.getSubscriberByEmail(email);
+      if (existingSubscriber) {
+        return res.status(200).json({
+          success: true,
+          message: 'You are already subscribed to the newsletter!'
+        });
+      }
+      
+      // Store the subscriber in the database
+      const savedSubscriber = await storage.createSubscriber(validatedSubscriber);
+      
+      console.log(`New subscriber: ${email} (IP: ${clientIp})`);
+      
+      return res.status(200).json({
+        success: true,
+        message: 'Successfully subscribed to the newsletter!',
+        data: { email: savedSubscriber.email }
+      });
+    } catch (error) {
+      console.error('Error subscribing to newsletter:', error);
+      
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          success: false,
+          message: 'Validation error',
+          errors: error.errors
+        });
+      }
+      
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to subscribe. Please try again later.'
+      });
+    }
+  });
+  
   // Admin routes for fetching contact messages
   app.get('/api/admin/contact-messages', async (req: Request, res: Response) => {
     try {
@@ -153,6 +217,23 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(500).json({ 
         success: false, 
         message: 'Failed to fetch contact messages. Please try again later.' 
+      });
+    }
+  });
+  
+  // Admin routes for fetching subscribers
+  app.get('/api/admin/subscribers', async (req: Request, res: Response) => {
+    try {
+      // In a real app, you would add authentication middleware here
+      // to ensure only admins can access this endpoint
+      
+      const subscriberList = await storage.getSubscribers();
+      return res.status(200).json(subscriberList);
+    } catch (error) {
+      console.error('Error fetching subscribers:', error);
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Failed to fetch subscribers. Please try again later.' 
       });
     }
   });

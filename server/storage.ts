@@ -209,6 +209,26 @@ export class DatabaseStorage implements IStorage {
     const result = await db.delete(contactMessages).where(eq(contactMessages.id, id));
     return true;
   }
+  
+  // Subscriber methods
+  async getSubscribers(): Promise<Subscriber[]> {
+    return await db.select().from(subscribers);
+  }
+  
+  async getSubscriberByEmail(email: string): Promise<Subscriber | undefined> {
+    const [subscriber] = await db.select().from(subscribers).where(eq(subscribers.email, email));
+    return subscriber;
+  }
+  
+  async createSubscriber(subscriber: InsertSubscriber): Promise<Subscriber> {
+    const [createdSubscriber] = await db.insert(subscribers).values(subscriber).returning();
+    return createdSubscriber;
+  }
+  
+  async deleteSubscriber(id: number): Promise<boolean> {
+    const result = await db.delete(subscribers).where(eq(subscribers.id, id));
+    return true;
+  }
 }
 
 export const storage = new DatabaseStorage();

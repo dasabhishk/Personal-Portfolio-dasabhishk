@@ -1,6 +1,16 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
+import { apiRequest } from '@/lib/queryClient';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import { useToast } from '@/hooks/use-toast';
+import { z } from 'zod';
+
+// Email validation schema
+const emailSchema = z.object({
+  email: z.string().email("Please enter a valid email address")
+});
 
 const Blog = () => {
   const controls = useAnimation();
@@ -9,11 +19,74 @@ const Blog = () => {
     threshold: 0.1
   });
   
+  const [email, setEmail] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState(false);
+  const { toast } = useToast();
+  
   useEffect(() => {
     if (inView) {
       controls.start('visible');
     }
   }, [controls, inView]);
+  
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value);
+    setError("");
+  };
+  
+  const handleSubscribe = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setError("");
+    
+    try {
+      // Validate email
+      const result = emailSchema.safeParse({ email });
+      if (!result.success) {
+        setError(result.error.errors[0].message);
+        return;
+      }
+      
+      setIsSubmitting(true);
+      
+      // Submit to API
+      const response = await apiRequest('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email })
+      });
+      
+      setSuccess(true);
+      setEmail("");
+      
+      toast({
+        title: "Subscription successful!",
+        description: "Thank you for subscribing to my newsletter.",
+        variant: "default",
+      });
+      
+    } catch (err: any) {
+      console.error("Subscription error:", err);
+      
+      // Handle API errors
+      if (err.status === 429) {
+        setError("Too many subscription attempts. Please try again later.");
+      } else if (err.data?.message) {
+        setError(err.data.message);
+      } else {
+        setError("Failed to subscribe. Please try again later.");
+      }
+      
+      toast({
+        title: "Subscription failed",
+        description: err.data?.message || "There was a problem with your subscription request.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
   
   return (
     <section 
