@@ -10,6 +10,9 @@ import Footer from "./components/Footer";
 import ThreeScene from "./components/ThreeScene";
 import { useTheme } from "./context/ThemeContext";
 
+// Import social preview image for Vite to include it in the build
+import previewImage from "@assets/social/preview.png";
+
 function App() {
   const { isDarkMode } = useTheme();
   const topRef = useRef<HTMLDivElement>(null);
