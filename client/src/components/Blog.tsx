@@ -51,11 +51,7 @@ const Blog = () => {
       setIsSubmitting(true);
       
       // Submit to API
-      const response = await apiRequest('/api/subscribe', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email })
-      });
+      const response = await apiRequest('POST', '/api/subscribe', { email });
       
       setSuccess(true);
       setEmail("");
@@ -158,22 +154,68 @@ const Blog = () => {
             I'm working on some exciting articles about backend development, cloud architecture, and performance optimization.
             Check back soon or subscribe to get notified when new content is published.
           </p>
-          <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-            <input 
-              type="email" 
-              placeholder="Your email address" 
-              className="flex-grow px-4 py-2 bg-background rounded-md border border-muted focus:outline-none focus:border-primary"
-            />
-            <motion.button 
-              type="button" 
-              className="px-6 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90 transition-colors font-medium flex items-center justify-center whitespace-nowrap"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+          {success ? (
+            <motion.div 
+              className="bg-green-50 dark:bg-green-900/20 border border-green-200 dark:border-green-800 rounded-md p-4 text-green-800 dark:text-green-300 max-w-md mx-auto"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
             >
-              Subscribe
-              <i className="ri-mail-send-line ml-2"></i>
-            </motion.button>
-          </form>
+              <div className="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                  <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                </svg>
+                <span className="font-medium">Successfully subscribed!</span>
+              </div>
+              <p className="mt-2 text-sm">Thank you for subscribing to my newsletter. You'll be notified when new content is published.</p>
+            </motion.div>
+          ) : (
+            <form onSubmit={handleSubscribe} className="flex flex-col gap-3 max-w-md mx-auto">
+              <div className="relative w-full">
+                <Input 
+                  type="email" 
+                  placeholder="Your email address" 
+                  value={email}
+                  onChange={handleEmailChange}
+                  className={`w-full ${error ? 'border-red-500 dark:border-red-700 focus-visible:ring-red-500' : ''}`}
+                  disabled={isSubmitting}
+                  required
+                />
+                {error && (
+                  <p className="text-red-500 dark:text-red-400 text-sm mt-1 text-left">
+                    {error}
+                  </p>
+                )}
+              </div>
+              <div className="flex justify-center sm:justify-start">
+                <Button 
+                  type="submit" 
+                  className="flex items-center gap-2"
+                  disabled={isSubmitting}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Processing...
+                    </>
+                  ) : (
+                    <>
+                      Subscribe
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+                        <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
+                      </svg>
+                    </>
+                  )}
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground mt-2">
+                I respect your privacy. Unsubscribe at any time.
+              </p>
+            </form>
+          )}
         </motion.div>
       </div>
     </section>
