@@ -29,7 +29,7 @@ const SkillBar = ({ name, percentage, delay = 0 }: SkillBarProps) => {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div className="flex justify-between mb-1">
+      <div className="flex justify-between mb-0.5">
         <span className="font-mono text-xs">{name}</span>
         <span className="text-secondary text-xs">{percentage}%</span>
       </div>

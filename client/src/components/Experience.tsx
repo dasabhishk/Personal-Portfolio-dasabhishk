@@ -198,7 +198,7 @@ const Experience = () => {
           {/* Skills Column */}
           <div className="lg:col-span-4">
             <motion.div
-              className="bg-card rounded-lg p-6 shadow-lg h-full"
+              className="bg-card rounded-lg px-4 py-4 shadow-lg"
               variants={containerVariants}
               initial="hidden"
               animate={controls}
@@ -213,7 +213,7 @@ const Experience = () => {
                 )}
               </h3>
 
-              <div className="space-y-3">
+              <div className="space-y-2">
                 {experienceItems[activeExperienceIndex].skills.map((skill, index) => (
                   <SkillBar
                     key={index}
@@ -224,15 +224,15 @@ const Experience = () => {
                 ))}
               </div>
 
-              <div className="mt-4 pt-3 border-t border-border">
+              <div className="mt-3 pt-2 border-t border-border">
                 <h4 className="font-mono text-secondary text-xs mb-1">Position</h4>
-                <div className="flex flex-col mb-2">
+                <div className="flex flex-col mb-1">
                   <span className="text-sm font-bold">{experienceItems[activeExperienceIndex].title}</span>
                   <span className="bg-primary/20 text-primary text-xs mt-1 px-2 py-0.5 rounded-sm font-mono w-fit">
                     {experienceItems[activeExperienceIndex].period}
                   </span>
                 </div>
-                <p className="text-muted-foreground text-xs">
+                <p className="text-muted-foreground text-xs pb-0">
                   {experienceItems[activeExperienceIndex].description}
                 </p>
               </div>
