@@ -8,7 +8,7 @@ async function testSubscribe() {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ email: 'test@example.com' })
+      body: JSON.stringify({ email: 'abhishek.das@gmail.com' })
     });
     
     const data = await response.json();
