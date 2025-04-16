@@ -10,6 +10,8 @@ type TimelineItemProps = {
   tags: string[];
   isLast: boolean;
   delay?: number;
+  isActive?: boolean;
+  onClick?: () => void;
 };
 
 const TimelineItem = ({ 
@@ -21,7 +23,9 @@ const TimelineItem = ({
   bullets, 
   tags, 
   isLast,
-  delay = 0 
+  delay = 0,
+  isActive = false,
+  onClick
 }: TimelineItemProps) => {
   return (
     <motion.div 
@@ -33,12 +37,21 @@ const TimelineItem = ({
         transition: { duration: 0.5, delay } 
       }}
     >
-      <div className="absolute -left-6 w-10 h-10 rounded-full bg-card border-2 border-primary flex items-center justify-center glow-border">
-        <i className="ri-briefcase-line text-primary"></i>
+      <div 
+        className={`absolute -left-6 w-10 h-10 rounded-full bg-card border-2 
+        ${isActive ? 'border-secondary' : 'border-primary'} 
+        flex items-center justify-center cursor-pointer transition-all duration-300
+        ${isActive ? 'scale-110 glow-border-strong' : 'glow-border'}`}
+        onClick={onClick}
+      >
+        <i className={`${isActive ? 'ri-briefcase-fill' : 'ri-briefcase-line'} ${isActive ? 'text-secondary' : 'text-primary'}`}></i>
       </div>
       <motion.div 
-        className="bg-card p-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300"
+        className={`bg-card p-6 rounded-lg shadow-lg transition-all duration-300
+        ${isActive ? 'shadow-xl border-l-4 border-secondary' : 'hover:shadow-xl'}`}
         whileHover={{ y: -5 }}
+        onClick={onClick}
+        style={{ cursor: onClick ? 'pointer' : 'default' }}
       >
         <div className="flex flex-col md:flex-row md:justify-between md:items-center mb-2">
           <h3 className="text-xl font-mono font-bold text-secondary">{title}</h3>

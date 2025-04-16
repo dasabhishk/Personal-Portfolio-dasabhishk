@@ -1,7 +1,8 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import TimelineItem from "./TimelineItem";
+import SkillBar from "./SkillBar";
 
 const Experience = () => {
   const controls = useAnimation();
@@ -9,6 +10,10 @@ const Experience = () => {
     triggerOnce: true,
     threshold: 0.1,
   });
+  // Keep track of the currently selected experience item
+  const [activeExperienceIndex, setActiveExperienceIndex] = useState(0);
+  // Add a state for hover effect on the timeline
+  const [timelineHovered, setTimelineHovered] = useState(false);
 
   useEffect(() => {
     if (inView) {
@@ -57,6 +62,13 @@ const Experience = () => {
         "Unit Testing",
         "Agile",
       ],
+      skills: [
+        { name: "C# / .NET", percentage: 95 },
+        { name: "AWS", percentage: 88 },
+        { name: "Docker", percentage: 90 },
+        { name: "CI/CD", percentage: 85 },
+        { name: "PL/SQL", percentage: 82 },
+      ]
     },
     {
       title: "Software Engineer",
@@ -82,6 +94,13 @@ const Experience = () => {
         "Agile",
         "MVC",
       ],
+      skills: [
+        { name: "Java / Spring", percentage: 92 },
+        { name: "REST API Design", percentage: 88 },
+        { name: "PL/SQL", percentage: 85 },
+        { name: "AWS", percentage: 80 },
+        { name: "Agile", percentage: 90 },
+      ]
     },
     {
       title: "Intern",
@@ -104,6 +123,13 @@ const Experience = () => {
         "PL/SQL",
         "Reporting Automation",
       ],
+      skills: [
+        { name: "Python", percentage: 85 },
+        { name: "Power BI", percentage: 90 },
+        { name: "Data Analytics", percentage: 82 },
+        { name: "PL/SQL", percentage: 75 },
+        { name: "Agile", percentage: 80 },
+      ]
     },
   ];
 
