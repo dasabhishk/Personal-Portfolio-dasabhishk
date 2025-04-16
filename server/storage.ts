@@ -4,7 +4,8 @@ import {
   skills, type Skill, type InsertSkill,
   techStack, type TechStack, type InsertTechStack,
   experience, type Experience, type InsertExperience,
-  contactMessages, type ContactMessage, type InsertContactMessage
+  contactMessages, type ContactMessage, type InsertContactMessage,
+  subscribers, type Subscriber, type InsertSubscriber
 } from "@shared/schema";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
@@ -48,6 +49,12 @@ export interface IStorage {
   getContactMessage(id: number): Promise<ContactMessage | undefined>;
   createContactMessage(message: InsertContactMessage): Promise<ContactMessage>;
   deleteContactMessage(id: number): Promise<boolean>;
+  
+  // Subscriber methods
+  getSubscribers(): Promise<Subscriber[]>;
+  getSubscriberByEmail(email: string): Promise<Subscriber | undefined>;
+  createSubscriber(subscriber: InsertSubscriber): Promise<Subscriber>;
+  deleteSubscriber(id: number): Promise<boolean>;
 }
 
 export class DatabaseStorage implements IStorage {

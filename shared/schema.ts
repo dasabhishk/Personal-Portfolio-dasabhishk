@@ -1,4 +1,4 @@
-import { pgTable, text, serial, timestamp, integer, varchar, json } from "drizzle-orm/pg-core";
+import { pgTable, text, serial, timestamp, integer, varchar, json, boolean } from "drizzle-orm/pg-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 import { relations } from "drizzle-orm";
@@ -63,6 +63,15 @@ export const contactMessages = pgTable("contact_messages", {
   email: varchar("email", { length: 255 }).notNull(),
   subject: varchar("subject", { length: 255 }).notNull(),
   message: text("message").notNull(),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
+// Subscribers table
+export const subscribers = pgTable("subscribers", {
+  id: serial("id").primaryKey(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  isConfirmed: boolean("is_confirmed").default(false),
+  ipAddress: varchar("ip_address", { length: 50 }),
   createdAt: timestamp("created_at").defaultNow(),
 });
 
@@ -156,6 +165,24 @@ export const insertContactMessageSchema = createInsertSchema(contactMessages)
       .refine(message => !/^\s*$/.test(message), { message: "Message cannot be just whitespace" })
   });
 
+export const insertSubscriberSchema = createInsertSchema(subscribers)
+  .omit({ 
+    id: true,
+    createdAt: true,
+    isConfirmed: true,
+  })
+  .extend({
+    email: z.string()
+      .email({ message: "Invalid email address format" })
+      .max(255, { message: "Email cannot exceed 255 characters" })
+      .refine(email => {
+        // Basic email validation - check for common domains and patterns
+        return email.includes('@') && 
+              email.split('@')[1].includes('.') && 
+              !/^[^@]+@(example|test|mailinator|tempmail)\.com$/.test(email.toLowerCase());
+      }, { message: "Please use a valid email address" }),
+  });
+
 // Types
 export type InsertUser = z.infer<typeof insertUserSchema>;
 export type User = typeof users.$inferSelect;
@@ -174,3 +201,6 @@ export type Experience = typeof experience.$inferSelect;
 
 export type InsertContactMessage = z.infer<typeof insertContactMessageSchema>;
 export type ContactMessage = typeof contactMessages.$inferSelect;
+
+export type InsertSubscriber = z.infer<typeof insertSubscriberSchema>;
+export type Subscriber = typeof subscribers.$inferSelect;
