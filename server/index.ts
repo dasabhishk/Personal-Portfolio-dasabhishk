@@ -6,6 +6,8 @@ import { cwd } from "process";
 import fs from 'fs';
 
 const app = express();
+// Trust the X-Forwarded-For header for rate limiting to work properly
+app.set('trust proxy', true);
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

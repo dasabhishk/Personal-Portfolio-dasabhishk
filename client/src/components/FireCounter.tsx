@@ -83,21 +83,37 @@ const FireCounter = () => {
         whileTap={{ scale: 0.95 }}
       >
         <span className="sr-only">Fire Rating</span>
-        <motion.span
-          className="inline-block"
-          animate={isAnimating ? {
-            y: [0, -20, 0],
-            scale: [1, 1.2, 1],
-            rotate: [0, 5, -5, 0],
-          } : {}}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
-        >
-          🔥
-        </motion.span>
+        <motion.div className="relative inline-block">
+          {/* Glowing background effect */}
+          {isAnimating && (
+            <motion.div
+              className="absolute inset-0 bg-gradient-to-t from-orange-500 to-yellow-300 rounded-full blur-md -z-10"
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ 
+                opacity: [0, 0.7, 0],
+                scale: [0.8, 1.5, 1.8],
+              }}
+              transition={{ duration: 1.2, ease: "easeOut" }}
+            />
+          )}
+          
+          <motion.span
+            className="inline-block"
+            animate={isAnimating ? {
+              y: [0, -20, 0],
+              scale: [1, 1.2, 1],
+              rotate: [0, 5, -5, 0],
+            } : {}}
+            transition={{ duration: 1.5, ease: "easeInOut" }}
+          >
+            🔥
+          </motion.span>
+        </motion.div>
         
         {/* Animated fire particles when clicked */}
         {isAnimating && (
           <>
+            {/* First particle group - flames */}
             <motion.span
               className="absolute text-xl"
               initial={{ opacity: 1, scale: 0.5, top: '50%', left: '50%' }}
@@ -126,6 +142,76 @@ const FireCounter = () => {
             >
               🔥
             </motion.span>
+            
+            {/* Second particle group - sparks */}
+            <motion.div
+              className="absolute w-1 h-1 bg-yellow-300 rounded-full"
+              initial={{ opacity: 1, top: '50%', left: '50%' }}
+              animate={{ 
+                opacity: 0,
+                top: '20%',
+                left: '45%',
+                scale: [1, 0.5]
+              }}
+              transition={{ duration: 0.8, ease: "easeOut" }}
+            />
+            <motion.div
+              className="absolute w-1 h-1 bg-orange-500 rounded-full"
+              initial={{ opacity: 1, top: '50%', left: '50%' }}
+              animate={{ 
+                opacity: 0,
+                top: '10%',
+                left: '55%',
+                scale: [1, 0.5]
+              }}
+              transition={{ duration: 0.7, ease: "easeOut" }}
+            />
+            <motion.div
+              className="absolute w-2 h-2 bg-red-500 rounded-full"
+              initial={{ opacity: 1, top: '50%', left: '50%' }}
+              animate={{ 
+                opacity: 0,
+                top: '30%',
+                left: '60%',
+                scale: [1, 0.5]
+              }}
+              transition={{ duration: 1, ease: "easeOut" }}
+            />
+            <motion.div
+              className="absolute w-1 h-1 bg-yellow-500 rounded-full"
+              initial={{ opacity: 1, top: '50%', left: '50%' }}
+              animate={{ 
+                opacity: 0,
+                top: '25%',
+                left: '40%',
+                scale: [1, 0.5]
+              }}
+              transition={{ duration: 0.9, ease: "easeOut" }}
+            />
+            
+            {/* Third particle group - embers */}
+            <motion.div
+              className="absolute w-1 h-1 bg-amber-500 rounded-full"
+              initial={{ opacity: 1, top: '50%', left: '50%' }}
+              animate={{ 
+                opacity: [1, 0.8, 0],
+                top: ['50%', '30%', '10%'],
+                left: ['50%', '48%', '46%'],
+                scale: [1, 0.8, 0.2]
+              }}
+              transition={{ duration: 1.2, ease: "easeOut", times: [0, 0.7, 1] }}
+            />
+            <motion.div
+              className="absolute w-1 h-1 bg-amber-400 rounded-full"
+              initial={{ opacity: 1, top: '50%', left: '50%' }}
+              animate={{ 
+                opacity: [1, 0.8, 0],
+                top: ['50%', '30%', '15%'],
+                left: ['50%', '52%', '54%'],
+                scale: [1, 0.8, 0.2]
+              }}
+              transition={{ duration: 1.3, ease: "easeOut", times: [0, 0.7, 1] }}
+            />
           </>
         )}
       </motion.button>
