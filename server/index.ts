@@ -3,24 +3,25 @@ import { registerRoutes } from "./routes";
 import { setupVite, serveStatic, log } from "./vite";
 import path from "path";
 import { cwd } from "process";
+import fs from 'fs';
 
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Serve static files from the public folder for social media sharing
-app.use(express.static(path.join(cwd(), 'client', 'public')));
-
-// Special route for PNG files
-app.get('/*.png', (req, res, next) => {
-  const pngPath = path.join(cwd(), 'client', 'public', req.path);
-  if (require('fs').existsSync(pngPath)) {
-    res.setHeader('Content-Type', 'image/png');
-    res.sendFile(pngPath);
-  } else {
-    next();
+app.use(express.static(path.join(cwd(), 'client', 'public'), {
+  setHeaders: (res, path) => {
+    // Set proper content type for PNG files
+    if (path.endsWith('.png')) {
+      res.setHeader('Content-Type', 'image/png');
+    }
+    // Set proper content type for SVG files
+    else if (path.endsWith('.svg')) {
+      res.setHeader('Content-Type', 'image/svg+xml');
+    }
   }
-});
+}));
 
 app.use((req, res, next) => {
   const start = Date.now();
