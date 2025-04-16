@@ -166,27 +166,78 @@ const Experience = () => {
           ></motion.div>
         </div>
 
-        <div className="max-w-3xl mx-auto">
-          <motion.div
-            className="relative border-l-2 border-primary ml-6 pl-8 pb-8 timeline-container"
-            variants={containerVariants}
-            initial="hidden"
-            animate={controls}
-          >
-            {experienceItems.map((item, index) => (
-              <TimelineItem
-                key={index}
-                title={item.title}
-                company={item.company}
-                period={item.period}
-                description={item.description}
-                bullets={item.bullets}
-                tags={item.tags}
-                isLast={index === experienceItems.length - 1}
-                delay={index * 0.2}
-              />
-            ))}
-          </motion.div>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
+          {/* Timeline Column */}
+          <div className="lg:col-span-7">
+            <motion.div
+              className="relative border-l-2 border-primary ml-6 pl-8 pb-8 timeline-container"
+              variants={containerVariants}
+              initial="hidden"
+              animate={controls}
+              onMouseEnter={() => setTimelineHovered(true)}
+              onMouseLeave={() => setTimelineHovered(false)}
+            >
+              {experienceItems.map((item, index) => (
+                <TimelineItem
+                  key={index}
+                  title={item.title}
+                  company={item.company}
+                  period={item.period}
+                  description={item.description}
+                  bullets={item.bullets}
+                  tags={item.tags}
+                  isLast={index === experienceItems.length - 1}
+                  delay={index * 0.2}
+                  isActive={activeExperienceIndex === index}
+                  onClick={() => setActiveExperienceIndex(index)}
+                />
+              ))}
+            </motion.div>
+          </div>
+
+          {/* Skills Column */}
+          <div className="lg:col-span-5">
+            <motion.div
+              className="bg-card rounded-lg p-6 shadow-lg h-full"
+              variants={containerVariants}
+              initial="hidden"
+              animate={controls}
+            >
+              <h3 className="text-xl font-mono font-bold mb-6 text-secondary flex items-center">
+                <i className="ri-tools-fill mr-2"></i> 
+                Skills & Expertise
+                {timelineHovered && (
+                  <span className="ml-2 text-xs text-muted-foreground animate-pulse">
+                    (Click on timeline items to see specific skills)
+                  </span>
+                )}
+              </h3>
+
+              <div className="space-y-5">
+                {experienceItems[activeExperienceIndex].skills.map((skill, index) => (
+                  <SkillBar
+                    key={index}
+                    name={skill.name}
+                    percentage={skill.percentage}
+                    delay={index * 0.1}
+                  />
+                ))}
+              </div>
+
+              <div className="mt-6 pt-4 border-t border-border">
+                <h4 className="font-mono text-secondary mb-2">Position</h4>
+                <div className="flex items-center mb-4">
+                  <span className="text-lg font-bold">{experienceItems[activeExperienceIndex].title}</span>
+                  <span className="bg-primary/20 text-primary text-xs ml-3 px-2 py-1 rounded font-mono">
+                    {experienceItems[activeExperienceIndex].period}
+                  </span>
+                </div>
+                <p className="text-muted-foreground">
+                  {experienceItems[activeExperienceIndex].description}
+                </p>
+              </div>
+            </motion.div>
+          </div>
         </div>
       </div>
     </section>
