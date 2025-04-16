@@ -168,7 +168,7 @@ const Experience = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 max-w-6xl mx-auto">
           {/* Timeline Column */}
-          <div className="lg:col-span-7">
+          <div className="lg:col-span-8">
             <motion.div
               className="relative border-l-2 border-primary ml-6 pl-8 pb-8 timeline-container"
               variants={containerVariants}
@@ -196,24 +196,24 @@ const Experience = () => {
           </div>
 
           {/* Skills Column */}
-          <div className="lg:col-span-5">
+          <div className="lg:col-span-4">
             <motion.div
               className="bg-card rounded-lg p-6 shadow-lg h-full"
               variants={containerVariants}
               initial="hidden"
               animate={controls}
             >
-              <h3 className="text-xl font-mono font-bold mb-6 text-secondary flex items-center">
+              <h3 className="text-base font-mono font-bold mb-3 text-secondary flex items-center">
                 <i className="ri-tools-fill mr-2"></i> 
                 Skills & Expertise
                 {timelineHovered && (
-                  <span className="ml-2 text-xs text-muted-foreground animate-pulse">
-                    (Click on timeline items to see specific skills)
+                  <span className="ml-2 text-xs text-muted-foreground animate-pulse hidden md:inline">
+                    (Click items)
                   </span>
                 )}
               </h3>
 
-              <div className="space-y-5">
+              <div className="space-y-3">
                 {experienceItems[activeExperienceIndex].skills.map((skill, index) => (
                   <SkillBar
                     key={index}
@@ -224,15 +224,15 @@ const Experience = () => {
                 ))}
               </div>
 
-              <div className="mt-6 pt-4 border-t border-border">
-                <h4 className="font-mono text-secondary mb-2">Position</h4>
-                <div className="flex items-center mb-4">
-                  <span className="text-lg font-bold">{experienceItems[activeExperienceIndex].title}</span>
-                  <span className="bg-primary/20 text-primary text-xs ml-3 px-2 py-1 rounded font-mono">
+              <div className="mt-4 pt-3 border-t border-border">
+                <h4 className="font-mono text-secondary text-xs mb-1">Position</h4>
+                <div className="flex flex-col mb-2">
+                  <span className="text-sm font-bold">{experienceItems[activeExperienceIndex].title}</span>
+                  <span className="bg-primary/20 text-primary text-xs mt-1 px-2 py-0.5 rounded-sm font-mono w-fit">
                     {experienceItems[activeExperienceIndex].period}
                   </span>
                 </div>
-                <p className="text-muted-foreground">
+                <p className="text-muted-foreground text-xs">
                   {experienceItems[activeExperienceIndex].description}
                 </p>
               </div>

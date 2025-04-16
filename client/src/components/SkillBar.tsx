@@ -30,10 +30,10 @@ const SkillBar = ({ name, percentage, delay = 0 }: SkillBarProps) => {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div className="flex justify-between mb-1">
-        <span className="font-mono text-sm">{name}</span>
-        <span className="text-secondary text-sm">{percentage}%</span>
+        <span className="font-mono text-xs">{name}</span>
+        <span className="text-secondary text-xs">{percentage}%</span>
       </div>
-      <div className="h-3 w-full bg-background rounded-full overflow-hidden">
+      <div className="h-2 w-full bg-background rounded-full overflow-hidden">
         <motion.div 
           className={`h-full rounded-full relative ${isHovered ? 'bg-gradient-to-r from-primary to-secondary background-shimmer' : 'bg-gradient-to-r from-primary to-secondary'}`}
           initial={{ width: 0 }}
@@ -45,7 +45,7 @@ const SkillBar = ({ name, percentage, delay = 0 }: SkillBarProps) => {
             }
           }}
           whileHover={{
-            boxShadow: '0 0 8px rgba(var(--color-primary), 0.6)'
+            boxShadow: '0 0 6px rgba(var(--color-primary), 0.6)'
           }}
         >
           {isHovered && (
