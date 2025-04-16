@@ -170,7 +170,7 @@ const Blog = () => {
               <p className="mt-2 text-sm">Thank you for subscribing to my newsletter. You'll be notified when new content is published.</p>
             </motion.div>
           ) : (
-            <form onSubmit={handleSubscribe} className="flex flex-col gap-3 max-w-md mx-auto">
+            <form onSubmit={handleSubscribe} className="flex flex-col gap-4 max-w-md mx-auto">
               <div className="relative w-full">
                 <Input 
                   type="email" 
@@ -187,10 +187,11 @@ const Blog = () => {
                   </p>
                 )}
               </div>
-              <div className="flex justify-center sm:justify-start">
+              
+              <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
                 <Button 
                   type="submit" 
-                  className="flex items-center gap-2"
+                  className="flex items-center justify-center gap-2 w-full sm:w-auto min-w-[160px]"
                   disabled={isSubmitting}
                 >
                   {isSubmitting ? (
@@ -211,7 +212,8 @@ const Blog = () => {
                   )}
                 </Button>
               </div>
-              <p className="text-xs text-muted-foreground mt-2">
+              
+              <p className="text-xs text-muted-foreground mt-1 text-center">
                 I respect your privacy. Unsubscribe at any time.
               </p>
             </form>
