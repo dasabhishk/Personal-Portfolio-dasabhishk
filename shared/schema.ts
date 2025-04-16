@@ -75,6 +75,23 @@ export const subscribers = pgTable("subscribers", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
+// Fire counter table to keep track of fire emoji clicks
+export const fireCounter = pgTable("fire_counter", {
+  id: serial("id").primaryKey(),
+  count: integer("count").notNull().default(0),
+  lastReset: timestamp("last_reset").defaultNow(),
+});
+
+// Fire votes table to track individual votes and prevent duplicates
+export const fireVotes = pgTable("fire_votes", {
+  id: serial("id").primaryKey(),
+  ipAddress: varchar("ip_address", { length: 50 }).notNull(),
+  userAgent: text("user_agent"),
+  createdAt: timestamp("created_at").defaultNow(),
+  // Add a daily limit to reset votes every day
+  voteDate: varchar("vote_date", { length: 10 }).notNull(), // Format: YYYY-MM-DD
+});
+
 // Relations
 export const usersRelations = relations(users, ({ many }) => ({
   projects: many(projects),
@@ -204,3 +221,15 @@ export type ContactMessage = typeof contactMessages.$inferSelect;
 
 export type InsertSubscriber = z.infer<typeof insertSubscriberSchema>;
 export type Subscriber = typeof subscribers.$inferSelect;
+
+// FireVote schema and type
+export const insertFireVoteSchema = createInsertSchema(fireVotes)
+  .omit({ 
+    id: true,
+    createdAt: true,
+  });
+export type InsertFireVote = z.infer<typeof insertFireVoteSchema>;
+export type FireVote = typeof fireVotes.$inferSelect;
+
+// FireCounter schema and type
+export type FireCounter = typeof fireCounter.$inferSelect;

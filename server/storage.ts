@@ -5,7 +5,8 @@ import {
   techStack, type TechStack, type InsertTechStack,
   experience, type Experience, type InsertExperience,
   contactMessages, type ContactMessage, type InsertContactMessage,
-  subscribers, type Subscriber, type InsertSubscriber
+  subscribers, type Subscriber, type InsertSubscriber,
+  fireCounter, fireVotes, type FireVote, type InsertFireVote, type FireCounter
 } from "@shared/schema";
 import { db } from "./db";
 import { eq } from "drizzle-orm";
@@ -55,6 +56,12 @@ export interface IStorage {
   getSubscriberByEmail(email: string): Promise<Subscriber | undefined>;
   createSubscriber(subscriber: InsertSubscriber): Promise<Subscriber>;
   deleteSubscriber(id: number): Promise<boolean>;
+  
+  // Fire counter methods
+  getFireCounter(): Promise<number>;
+  incrementFireCounter(): Promise<number>;
+  hasVotedToday(ipAddress: string): Promise<boolean>;
+  addFireVote(vote: InsertFireVote): Promise<FireVote>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -228,6 +235,63 @@ export class DatabaseStorage implements IStorage {
   async deleteSubscriber(id: number): Promise<boolean> {
     const result = await db.delete(subscribers).where(eq(subscribers.id, id));
     return true;
+  }
+  
+  // Fire counter methods
+  async getFireCounter(): Promise<number> {
+    // Get the current fire counter, initialize it if it doesn't exist
+    const counters = await db.select().from(fireCounter);
+    
+    if (counters.length === 0) {
+      // Initialize the counter if it doesn't exist
+      const [newCounter] = await db.insert(fireCounter)
+        .values({ count: 0 })
+        .returning();
+      return newCounter.count;
+    }
+    
+    return counters[0].count;
+  }
+  
+  async incrementFireCounter(): Promise<number> {
+    const counters = await db.select().from(fireCounter);
+    
+    if (counters.length === 0) {
+      // Initialize the counter if it doesn't exist
+      const [newCounter] = await db.insert(fireCounter)
+        .values({ count: 1 })
+        .returning();
+      return newCounter.count;
+    }
+    
+    // Update the existing counter
+    const [updatedCounter] = await db.update(fireCounter)
+      .set({ count: counters[0].count + 1, lastReset: new Date() })
+      .where(eq(fireCounter.id, counters[0].id))
+      .returning();
+      
+    return updatedCounter.count;
+  }
+  
+  async hasVotedToday(ipAddress: string): Promise<boolean> {
+    // Get the current date in YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
+    
+    // Check if the IP address has already voted today
+    const existingVotes = await db.select()
+      .from(fireVotes)
+      .where(eq(fireVotes.ipAddress, ipAddress))
+      .where(eq(fireVotes.voteDate, today));
+      
+    return existingVotes.length > 0;
+  }
+  
+  async addFireVote(vote: InsertFireVote): Promise<FireVote> {
+    const [createdVote] = await db.insert(fireVotes)
+      .values(vote)
+      .returning();
+      
+    return createdVote;
   }
 }
 
