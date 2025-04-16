@@ -128,10 +128,33 @@ export const insertExperienceSchema = createInsertSchema(experience).omit({
   createdAt: true,
 });
 
-export const insertContactMessageSchema = createInsertSchema(contactMessages).omit({ 
-  id: true,
-  createdAt: true,
-});
+export const insertContactMessageSchema = createInsertSchema(contactMessages)
+  .omit({ 
+    id: true,
+    createdAt: true,
+  })
+  .extend({
+    name: z.string()
+      .min(2, { message: "Name must be at least 2 characters long" })
+      .max(100, { message: "Name cannot exceed 100 characters" })
+      .refine(name => !/^\s*$/.test(name), { message: "Name cannot be just whitespace" }),
+    email: z.string()
+      .email({ message: "Invalid email address format" })
+      .max(255, { message: "Email cannot exceed 255 characters" })
+      .refine(email => {
+        // Basic email validation - check for common domains and patterns
+        return email.includes('@') && 
+              email.split('@')[1].includes('.') && 
+              !/^[^@]+@(example|test|mailinator|tempmail)\.com$/.test(email.toLowerCase());
+      }, { message: "Please use a valid email address" }),
+    subject: z.string()
+      .min(3, { message: "Subject must be at least 3 characters long" })
+      .max(200, { message: "Subject cannot exceed 200 characters" }),
+    message: z.string()
+      .min(10, { message: "Message must be at least 10 characters long" })
+      .max(2000, { message: "Message cannot exceed 2000 characters" })
+      .refine(message => !/^\s*$/.test(message), { message: "Message cannot be just whitespace" })
+  });
 
 // Types
 export type InsertUser = z.infer<typeof insertUserSchema>;
