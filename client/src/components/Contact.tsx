@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import { motion, useAnimation } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 
+// Define field character limits matching the server-side validation
+const FIELD_LIMITS = {
+  name: 100,
+  subject: 200,
+  message: 2000
+};
+
 const Contact = () => {
   const controls = useAnimation();
   const [ref, inView] = useInView({
@@ -30,10 +37,20 @@ const Contact = () => {
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { id, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [id]: value,
-    }));
+    
+    // Enforce character limits when typing
+    if (
+      (id === 'name' && value.length <= FIELD_LIMITS.name) ||
+      (id === 'email') ||
+      (id === 'subject' && value.length <= FIELD_LIMITS.subject) ||
+      (id === 'message' && value.length <= FIELD_LIMITS.message) ||
+      value.length === 0 // Always allow clearing the field
+    ) {
+      setFormData((prev) => ({
+        ...prev,
+        [id]: value,
+      }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -182,12 +199,17 @@ const Contact = () => {
 
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
-                  <label
-                    htmlFor="name"
-                    className="block text-foreground mb-2 font-mono text-sm"
-                  >
-                    Name
-                  </label>
+                  <div className="flex justify-between items-center mb-2">
+                    <label
+                      htmlFor="name"
+                      className="block text-foreground font-mono text-sm"
+                    >
+                      Name
+                    </label>
+                    <span className={`text-xs ${formData.name.length >= FIELD_LIMITS.name * 0.9 ? 'text-destructive font-medium' : 'text-muted-foreground'}`}>
+                      {formData.name.length}/{FIELD_LIMITS.name}
+                    </span>
+                  </div>
                   <input
                     type="text"
                     id="name"
@@ -195,6 +217,7 @@ const Contact = () => {
                     onChange={handleChange}
                     className="w-full px-4 py-2 bg-background rounded-md border border-muted focus:outline-none focus:border-primary"
                     required
+                    maxLength={FIELD_LIMITS.name}
                   />
                 </div>
 
@@ -216,12 +239,17 @@ const Contact = () => {
                 </div>
 
                 <div className="mb-4">
-                  <label
-                    htmlFor="subject"
-                    className="block text-foreground mb-2 font-mono text-sm"
-                  >
-                    Subject
-                  </label>
+                  <div className="flex justify-between items-center mb-2">
+                    <label
+                      htmlFor="subject"
+                      className="block text-foreground font-mono text-sm"
+                    >
+                      Subject
+                    </label>
+                    <span className={`text-xs ${formData.subject.length >= FIELD_LIMITS.subject * 0.9 ? 'text-destructive font-medium' : 'text-muted-foreground'}`}>
+                      {formData.subject.length}/{FIELD_LIMITS.subject}
+                    </span>
+                  </div>
                   <input
                     type="text"
                     id="subject"
@@ -229,16 +257,22 @@ const Contact = () => {
                     onChange={handleChange}
                     className="w-full px-4 py-2 bg-background rounded-md border border-muted focus:outline-none focus:border-primary"
                     required
+                    maxLength={FIELD_LIMITS.subject}
                   />
                 </div>
 
                 <div className="mb-6">
-                  <label
-                    htmlFor="message"
-                    className="block text-foreground mb-2 font-mono text-sm"
-                  >
-                    Message
-                  </label>
+                  <div className="flex justify-between items-center mb-2">
+                    <label
+                      htmlFor="message"
+                      className="block text-foreground font-mono text-sm"
+                    >
+                      Message
+                    </label>
+                    <span className={`text-xs ${formData.message.length >= FIELD_LIMITS.message * 0.9 ? 'text-destructive font-medium' : 'text-muted-foreground'}`}>
+                      {formData.message.length}/{FIELD_LIMITS.message}
+                    </span>
+                  </div>
                   <textarea
                     id="message"
                     rows={5}
@@ -246,6 +280,7 @@ const Contact = () => {
                     onChange={handleChange}
                     className="w-full px-4 py-2 bg-background rounded-md border border-muted focus:outline-none focus:border-primary"
                     required
+                    maxLength={FIELD_LIMITS.message}
                   ></textarea>
                 </div>
 
