@@ -1,7 +1,7 @@
 import type { Express, Request, Response, NextFunction } from "express";
 import { createServer, type Server } from "http";
 import { storage } from "./storage";
-import { insertContactMessageSchema, insertSubscriberSchema } from "@shared/schema";
+import { insertContactMessageSchema, insertSubscriberSchema, insertFireVoteSchema } from "@shared/schema";
 import { z } from "zod";
 import rateLimit from "express-rate-limit";
 
@@ -234,6 +234,86 @@ export async function registerRoutes(app: Express): Promise<Server> {
       return res.status(500).json({ 
         success: false, 
         message: 'Failed to fetch subscribers. Please try again later.' 
+      });
+    }
+  });
+  
+  // Create fire counter rate limiter (1 vote per day per IP)
+  const fireCounterLimiter = rateLimit({
+    windowMs: 24 * 60 * 60 * 1000, // 24 hours
+    limit: 1, // 1 vote per day
+    standardHeaders: 'draft-7',
+    legacyHeaders: false,
+    message: {
+      success: false,
+      message: 'You can only vote once per day. Please try again tomorrow.'
+    }
+  });
+  
+  // Get current fire counter
+  app.get('/api/fire-counter', async (req: Request, res: Response) => {
+    try {
+      const count = await storage.getFireCounter();
+      return res.status(200).json({ count });
+    } catch (error) {
+      console.error('Error fetching fire counter:', error);
+      return res.status(500).json({ 
+        success: false, 
+        message: 'Failed to fetch counter. Please try again later.' 
+      });
+    }
+  });
+  
+  // Increment fire counter with rate limiting and vote tracking
+  app.post('/api/fire-counter', fireCounterLimiter, async (req: Request, res: Response) => {
+    try {
+      // Get client IP for tracking
+      const clientIp = req.ip || req.socket.remoteAddress || 'unknown';
+      const userAgent = req.headers['user-agent'] || '';
+      
+      // Get the current date in YYYY-MM-DD format for daily tracking
+      const today = new Date().toISOString().split('T')[0];
+      
+      // Check if this IP has already voted today
+      const hasVoted = await storage.hasVotedToday(clientIp);
+      if (hasVoted) {
+        return res.status(429).json({
+          success: false,
+          message: 'You have already voted today. Please try again tomorrow.'
+        });
+      }
+      
+      // Record the vote
+      const fireVote = {
+        ipAddress: clientIp,
+        userAgent,
+        voteDate: today
+      };
+      
+      await storage.addFireVote(fireVote);
+      
+      // Increment the counter
+      const newCount = await storage.incrementFireCounter();
+      
+      return res.status(200).json({
+        success: true,
+        message: 'Thanks for the 🔥!',
+        count: newCount
+      });
+    } catch (error) {
+      console.error('Error incrementing fire counter:', error);
+      
+      if (error instanceof z.ZodError) {
+        return res.status(400).json({
+          success: false,
+          message: 'Validation error',
+          errors: error.errors
+        });
+      }
+      
+      return res.status(500).json({
+        success: false,
+        message: 'Failed to update counter. Please try again later.'
       });
     }
   });

@@ -9,7 +9,7 @@ import {
   fireCounter, fireVotes, type FireVote, type InsertFireVote, type FireCounter
 } from "@shared/schema";
 import { db } from "./db";
-import { eq } from "drizzle-orm";
+import { eq, and } from "drizzle-orm";
 
 export interface IStorage {
   // User methods
@@ -280,8 +280,10 @@ export class DatabaseStorage implements IStorage {
     // Check if the IP address has already voted today
     const existingVotes = await db.select()
       .from(fireVotes)
-      .where(eq(fireVotes.ipAddress, ipAddress))
-      .where(eq(fireVotes.voteDate, today));
+      .where(and(
+        eq(fireVotes.ipAddress, ipAddress),
+        eq(fireVotes.voteDate, today)
+      ));
       
     return existingVotes.length > 0;
   }

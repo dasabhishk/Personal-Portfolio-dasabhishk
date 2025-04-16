@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { useState, useCallback } from 'react';
+import FireCounter from './FireCounter';
 
 type FooterProps = {
   onLogoClick: () => void;
@@ -43,8 +44,11 @@ const Footer = ({ onLogoClick }: FooterProps) => {
             </a>
           </div>
           
-          <div className="text-muted-foreground text-sm">
-            &copy; {currentYear} Abhishek Das. All rights reserved.
+          <div className="flex flex-col items-center">
+            <FireCounter />
+            <div className="text-muted-foreground text-sm mt-2">
+              &copy; {currentYear} Abhishek Das. All rights reserved.
+            </div>
           </div>
           
           <div className="mt-4 md:mt-0 flex items-center">
